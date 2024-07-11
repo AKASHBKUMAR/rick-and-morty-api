@@ -10,6 +10,15 @@ const APIComponent = () => {
 
   useEffect(()=>{
     fetchData(pages);
+
+    if (pages <= 1) 
+    {
+      setPreviousButton(true);
+    }
+    if(pages >= 42)
+    {
+      setNextButton(true);
+    } 
   },[pages])
 
   const fetchData = async (pages) => {
@@ -18,37 +27,24 @@ const APIComponent = () => {
     setResponse(apiresponse.data.results);
   }
 
-  const handleNext = () =>{
-     if(pages > 42)
-    {
-      setNextButton(true);
-      setPreviousButton(false);
-    } 
-    else 
-    {
-      setPages(pages+1);
-      setNextButton(false);
-      setPreviousButton(false);
-    }
+  const handleNext = () =>
+  {
+    setPages(pages+1);
+    setNextButton(false);
+    setPreviousButton(false);
   }
 
-  const handlePrevious = () => {
-    if (pages < 1) 
-    {
-      setPreviousButton(false);
-      setNextButton(true);
-    }
-    else 
-    {
-      setPages (pages-1)
-      setNextButton(false);
-      setPreviousButton(false);
-    }
+  const handlePrevious = () => 
+  {
+    console.log(pages)
+    setPages (pages-1)
+    setNextButton(false);
+    setPreviousButton(false);
   }
 
   return (
     <section className='main-page'>
-      <h1 className='main-header'>RICK AND MORTY API</h1>
+      <h1 className='main-header'>RICK AND MORTY</h1>
       <div className='main-container'>
       {
         response.map((responseValue,responseIndex)=> {
